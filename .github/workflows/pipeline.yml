@@ -1,0 +1,73 @@
+
+name: Procurement Lakehouse CI
+
+
+
+on:
+
+  push:
+
+    branches: [main]
+
+  schedule:
+
+    - cron: '0 6 * * *'  
+
+
+
+jobs:
+
+  pipeline:
+
+    runs-on: ubuntu-latest
+
+
+
+    steps:
+
+      - name: Checkout code
+
+        uses: actions/checkout@v3
+
+
+
+      - name: Setup Python
+
+        uses: actions/setup-python@v4
+
+        with:
+
+          python-version: '3.12'
+
+
+
+      - name: Install dependencies
+
+        run: |
+
+          pip install requests pandas duckdb dbt-duckdb great-expectations
+
+
+
+      - name: Run ingestion
+
+        run: python3 ingestion/fetch_contracts.py
+
+
+
+      - name: Run dbt
+
+        run: |
+
+          cd dbt_project
+
+          dbt run
+
+          dbt test
+
+
+
+      - name: Run GE checks
+
+        run: python3 quality/ge_checks.py
+
