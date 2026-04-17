@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: bronze_contracts
+    description: "Raw World Bank documents from API"
+    columns:
+      - name: id
+        description: "Document unique identifier"
+        tests:
+          - unique
+
+  - name: silver_contracts
+    description: "Cleaned and typed contracts - nulls filtered"
+    columns:
+      - name: id
+        tests:
+          - not_null
+          - unique
+      - name: document_type
+        tests:
+          - not_null
+      - name: document_date
+        tests:
+          - not_null

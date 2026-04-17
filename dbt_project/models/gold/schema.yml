@@ -1,0 +1,23 @@
+version: 2
+
+models:
+  - name: gold_contracts_by_region
+    description: "Documents aggregated by region and type"
+    columns:
+      - name: region
+        tests:
+          - not_null
+      - name: total_documents
+        tests:
+          - not_null
+
+  - name: gold_project_summary
+    description: "Summary per project"
+    columns:
+      - name: project_id
+        tests:
+          - not_null
+          - unique
+      - name: total_documents
+        tests:
+          - not_null
