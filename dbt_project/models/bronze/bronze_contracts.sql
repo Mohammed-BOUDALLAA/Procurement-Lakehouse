@@ -16,6 +16,6 @@ SELECT
     disclosure_date,
     no_of_pages
 FROM read_parquet(
-    '/home/newusermed/procurement-lakehouse/ingestion/data/raw/contracts/*.parquet',
+    '../data/raw/contracts/*.parquet',
     union_by_name=True
 )
